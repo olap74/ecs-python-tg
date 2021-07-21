@@ -30,6 +30,7 @@ The repo contains the next components:
 	    - ./buildspec.yml - Build SPEC for AWS Codebuild
 	    - ./terragrunt.hcl - Main Terragrunt configuration file for "DEV" environment. Contains variable values.
 	    - ./credentials.tfvars - Contains GitHub token. File is not in repo because it is added to .gitignore. Should be created manually.
+		- ./aws.tfvars - Contains AWS settings (account id, region, profile name). File is not in repo because it is added to .gitignore. Should be created manually.
 - /modules - Terraform modules
 
 ## Configuration
@@ -65,6 +66,12 @@ You can set variable value during terragrunt run to override configuration. For 
  - Create "credentials.tfvars" and add [GitHub token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token): 
   
  `github_oauth_token = "YOUR_TOKEN"`
+
+ - Create "aws.tfvars" file and add the next variables:
+
+`aws_profile = "YOUR LOCAL PROFILE NAME"
+aws_account = "YOUR ACCOUNT ID"
+aws_region = "REGION"`
 
 ### One command deployment
 
