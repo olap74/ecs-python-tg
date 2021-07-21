@@ -29,8 +29,7 @@ The repo contains the next components:
 	    - ./init-build - Terragrunt configuration for "init-build" module
 	    - ./buildspec.yml - Build SPEC for AWS Codebuild
 	    - ./terragrunt.hcl - Main Terragrunt configuration file for "DEV" environment. Contains variable values.
-	    - ./credentials.tfvars - Contains GitHub token. File is not in repo because it is added to .gitignore. Should be created manually.
-		- ./aws.tfvars - Contains AWS settings (account id, region, profile name). File is not in repo because it is added to .gitignore. Should be created manually.
+	    - ./secrets.hcl - Contains required parameters. File is not in repo because it is added to .gitignore. Should be created manually.
 - /modules - Terraform modules
 
 ## Configuration
@@ -63,15 +62,23 @@ You can set variable value during terragrunt run to override configuration. For 
  - Configure AWS Cli for your account (see [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html))
  - Download the repo content
  - Edit configuration files described above
- - Create "credentials.tfvars" and add [GitHub token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token): 
-  
- `github_oauth_token = "YOUR_TOKEN"`
+ - Obtaint [GitHub token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
+ - Create "secrets.hcl" file and add required variables:
 
- - Create "aws.tfvars" file and add the next variables:
-
-`aws_profile = "YOUR LOCAL PROFILE NAME"
-aws_account = "YOUR ACCOUNT ID"
-aws_region = "REGION"`
+`inputs = {
+  remote_state_bucket = "terraform-nodeapp-ecs"
+  environment = "dev"
+  app_name = "flaskapp"
+  image_tag = "0.0.1"
+  repo_url = "https://github.com/olap74/ecs-python-tg"
+  branch_pattern = "^refs/heads/develop$"
+  git_trigger_event = "PUSH"
+  aws_profile = "YOUR LOCAL PROFILE NAME"
+  aws_account = "AWS ACCOUNT ID"
+  aws_region = "AWS REgION"
+  github_oauth_token = "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"
+}
+`
 
 ### One command deployment
 
@@ -91,9 +98,9 @@ aws_region = "REGION"`
 
 Step by step deployment should be done in the next order:
 
-1. ECR creation (`providers/dev/ecr` directory)
-2. Initial build (`providers/dev/init-build` directory)
-3. Cluster creation (`providers/dev/ecs-cluster` directory)
+1. ECR creation (`providers/dev/ecr`)
+2. Initial build (`providers/dev/init-build`)
+3. Cluster creation (`providers/dev/ecs-cluster`)
 4. Codebuild job setup (`providers/dev/codebuild`)
 
 Go to each folder one by one and run:
