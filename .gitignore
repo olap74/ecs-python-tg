@@ -6,7 +6,7 @@
 .vscode
 .terraform.lock.hcl
 terraform.tfvars
-credentials.tfvars
+secrets.hcl
 
 # Module directory
 .terraform/

@@ -2,6 +2,10 @@ terraform {
   source = "../../../modules//cluster"
 }
 
+locals {
+  secrets = read_terragrunt_config(find_in_parent_folders("secrets.hcl"))
+}
+
 include {
   path = find_in_parent_folders()
 }
@@ -17,6 +21,9 @@ dependency "ecr" {
   }
 }
 
-inputs = {
+inputs = merge(
+  local.secrets.inputs,
+  {
     ecr_repository_url = dependency.ecr.outputs.ecr_repository_url
-}
+  }
+)
