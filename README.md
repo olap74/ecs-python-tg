@@ -29,7 +29,7 @@ The repo contains the next components:
 	    - ./init-build - Terragrunt configuration for "init-build" module
 	    - ./buildspec.yml - Build SPEC for AWS Codebuild
 	    - ./terragrunt.hcl - Main Terragrunt configuration file for "DEV" environment. Contains variable values.
-	    - ./secrets.hcl - Contains required parameters. File is not in repo because it is added to .gitignore. Should be created manually.
+	    - ./secrets.hcl - Contains secrets. File is not in repo because it is added to .gitignore. Should be created manually.
 - /modules - Terraform modules
 
 ## Configuration
@@ -63,20 +63,10 @@ You can set variable value during terragrunt run to override configuration. For 
  - Download the repo content
  - Edit configuration files described above
  - Obtaint [GitHub token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
- - Create "secrets.hcl" file and add required variables:
+ - Create "secrets.hcl" file and add Github token:
 
 `inputs = {
-  remote_state_bucket = "terraform-nodeapp-ecs"
-  environment = "dev"
-  app_name = "flaskapp"
-  image_tag = "0.0.1"
-  repo_url = "https://github.com/olap74/ecs-python-tg"
-  branch_pattern = "^refs/heads/develop$"
-  git_trigger_event = "PUSH"
-  aws_profile = "YOUR LOCAL PROFILE NAME"
-  aws_account = "AWS ACCOUNT ID"
-  aws_region = "AWS REgION"
-  github_oauth_token = "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"
+  github_oauth_token = "GITHUB_TOKEN"
 }
 `
 
