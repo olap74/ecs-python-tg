@@ -1,0 +1,33 @@
+<!doctype html>
+
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <style>
+    body {
+	    background: #EAEAEA;
+	    color: #000000;
+	    font: 10pt Arial, Helvetica;
+	    padding: 0px;
+    }
+    p {
+	    padding: 0px;
+	    margin: 5px 0 5px;
+    }
+    </style>
+  </head>
+
+  <body>
+    <h1>{{ title }}</h1>
+    <p>This is the home page of our application.</p>
+    <ul>
+    {% for bucket in data %}
+    <li>{{ bucket.Name }} - {{ bucket.CreationDate }}
+    {% endfor %}
+    </ul>
+    <p>&nbsp;</p>
+    <div align="bottom"><font style="size: 90%; font-weight: bold;">Build: {{ version }}</font></div>
+  </body>
+</html>

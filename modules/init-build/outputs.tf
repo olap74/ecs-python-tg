@@ -1,0 +1,3 @@
+output "confirmation" {
+    value = "Done"
+}
