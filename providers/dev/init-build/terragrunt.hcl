@@ -12,6 +12,6 @@ dependency "ecr" {
 }
 
 inputs = {
-  working_dir = "${get_terragrunt_dir()}/../../../app"
+  working_dir = format("%s/../../../app", get_terragrunt_dir())
 }
 

@@ -61,7 +61,7 @@ You can set variable value during terragrunt run to override configuration. For 
  - Install the required versions of Terragrunt and Terraform 
  - Configure AWS Cli for your account (see [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html))
  - Download the repo content
- - Edit configuration files described above
+ - Update "locals" block in providers/dev/terragrunt.hcl file
  - Obtaint [GitHub token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
  - Create "secrets.hcl" file and add Github token:
 
@@ -69,6 +69,8 @@ You can set variable value during terragrunt run to override configuration. For 
   github_oauth_token = "GITHUB_TOKEN"
 }
 `
+
+> If you want to change Application name, environment name or region do not forget to update buildspec.yml before deploying from sratch. If you want to change parameters when infrastructure already deployed, it will delete all of existing resources and deploy new infrastructure and application.
 
 ### One command deployment
 
