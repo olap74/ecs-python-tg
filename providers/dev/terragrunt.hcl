@@ -1,5 +1,5 @@
 locals {
-  remote_state_bucket = "terraform"
+  remote_state_bucket_prefix = "terraform"
   environment = "dev"
   app_name = "flaskapp"
   aws_profile = "default"
@@ -12,7 +12,7 @@ locals {
 }
 
 inputs = {
-  remote_state_bucket = format("%s-%s-%s-%s", local.remote_state_bucket, local.app_name, local.environment, local.aws_region)
+  remote_state_bucket = format("%s-%s-%s-%s", local.remote_state_bucket_prefix, local.app_name, local.environment, local.aws_region)
   environment = local.environment
   app_name = local.app_name
   aws_profile = local.aws_profile
@@ -29,7 +29,7 @@ remote_state {
 
   config = {
     encrypt        = true
-    bucket         = format("%s-%s-%s-%s", local.remote_state_bucket, local.app_name, local.environment, local.aws_region)
+    bucket         = format("%s-%s-%s-%s", local.remote_state_bucket_prefix, local.app_name, local.environment, local.aws_region)
     key            = format("%s/terraform.tfstate", path_relative_to_include())
     region         = local.aws_region
     dynamodb_table = format("tflock-%s-%s-%s", local.environment, local.app_name, local.aws_region)
