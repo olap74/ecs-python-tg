@@ -27,7 +27,8 @@ phases:
       
   build:
     commands:
-      - echo "Build and push docker images" && cd "${CODEBUILD_SRC_DIR}/app"
+      - echo "Build and push docker images"
+      - cd "${CODEBUILD_SRC_DIR}/app"
       - export TAG="${CODEBUILD_RESOLVED_SOURCE_VERSION}-${ENV}"
       - echo "Building version ${TAG}"
       - make build
@@ -45,7 +46,7 @@ phases:
            NEW_ARN=$(aws ecs list-services --cluster ${APP_NAME}-${ENV}-cluster | jq -r .serviceArns[])
            NEW_TASKDEF=$(aws ecs describe-services --cluster ${APP_NAME}-${ENV}-cluster --service ${NEW_ARN} | jq -r .services[].taskDefinition)
            NEWTAG=$(aws ecs describe-task-definition --task-definition ${NEW_TASKDEF} | jq -r .taskDefinition.containerDefinitions[].image | tr ':' ' ' | awk '{print $2}')
-           echo "Tag: ${TAG} New tag: ${NEWTAG}"
+           echo "Waiting until new image started... Tag: ${TAG} New tag: ${NEWTAG}"
            if [ "${NEWTAG}" != ${TAG} ]; then
               sleep 10
            fi
