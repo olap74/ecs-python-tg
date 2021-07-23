@@ -132,5 +132,52 @@ Or you can destroy components step by step in reverse order from deployment. Go 
 
 ```
 terragrunt destroy
-```   
+```
+
+### Manual Version Rollback
+
+In some cases you may need to rollback current version running on ECS. This can be done manually using Teraform & Terragrunt. 
+
+Before running Terragrunt you should go to Elastic Container Registry and select the tag of image you want to run on ECS. Then follow the next steps:
+
+```
+cd providers/dev/ecs-cluster && terragrunt plan --var image_tag="TAG_OF_REQUIRED_IMAGE"
+```
+
+Then review generated plan and if you agree to incoming changes, run:
+
+``` 
+terragrunt apply --var image_tag="TAG_OF_REQUIRED_IMAGE"
+```
+
+and confirm changes.
+
+### Manual application build deploy
+
+To build and deploy application manually, first, you should go to application directory and run build
+
+``` bash
+cd app/
+
+export AWS_PROFILE="YOUR AWS PROFILE NAME"
+export TAG="NEW IMAGE TAG"
+export APP_NAME="flaskapp" # (optional)
+export ENV_NAME="dev" # (optional)
+
+make build 
+```
+
+Wait until application is deployed to ECR then go to `providers/dev/ecs-cluster`and run Terragrunt:
+
+```
+terragrunt plan --var image_tag="NEW IMAGE TAG"
+```
+
+Then review generated plan and if you agree to incoming changes, run:
+
+``` 
+terragrunt apply --var image_tag="NEW IMAGE TAG"
+```
+
+and confirm changes.
 
