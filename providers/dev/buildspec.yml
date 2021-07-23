@@ -21,7 +21,7 @@ phases:
       - pip install jq
       - echo "Getting existing tag"
       - export SERVICE_ARN=$(aws ecs list-services --cluster ${APP_NAME}-${ENV-cluster} | jq -r .serviceArns[])
-      - export TASKDEF_ARN=$(aws ecs describe-services --cluster ${APP_NAME}-${ENV-cluster} --service ${TASKDEF_ARN} | jq -r .services[].taskDefinition)
+      - export TASKDEF_ARN=$(aws ecs describe-services --cluster ${APP_NAME}-${ENV}-cluster --service ${TASKDEF_ARN} | jq -r .services[].taskDefinition)
       - export EXISTING_TAG=$(aws ecs describe-task-definition --task-definition ${TASKDEF_ARN} | jq -r .taskDefinition.containerDefinitions[].image | tr ':' ' ' | awk '{print $2}')
       - echo "Current version is ${EXISTING_TAG}"
       
