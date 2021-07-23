@@ -24,12 +24,12 @@ The repo contains the next components:
 - /providers - Terragrunt directory
     - ./dev - DEV environment configuration
         - ./codebuild - Terragrunt configuration for "codebuild" module
-	    - ./ecr - Terragrunt configuration for "ecr" module
-	    - ./ecs-cluster - Terragrunt configuration for "cluster" module
-	    - ./init-build - Terragrunt configuration for "init-build" module
-	    - ./buildspec.yml - Build SPEC for AWS Codebuild
-	    - ./terragrunt.hcl - Main Terragrunt configuration file for "DEV" environment. Contains variable values.
-	    - ./secrets.hcl - Contains secrets. File is not in repo because it is added to .gitignore. Should be created manually.
+	- ./ecr - Terragrunt configuration for "ecr" module
+	- ./ecs-cluster - Terragrunt configuration for "cluster" module
+	- ./init-build - Terragrunt configuration for "init-build" module
+	- ./buildspec.yml - Build SPEC for AWS Codebuild
+	- ./terragrunt.hcl - Main Terragrunt configuration file for "DEV" environment. Contains variable values.
+	- ./secrets.hcl - Contains secrets. File is not in repo because it is added to .gitignore. Should be created manually.
 - /modules - Terraform modules
 
 ## Configuration
