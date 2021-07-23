@@ -38,5 +38,16 @@ phases:
 
   post_build:
     commands:
-      - NEWTAG=''; while [ "${NEWTAG}" != "${TAG}" ]; do NEW_ARN=$(aws ecs list-services --cluster ${APP_NAME}-${ENV}-cluster | jq -r .serviceArns[]); NEW_TASKDEF=$(aws ecs describe-services --cluster ${APP_NAME}-${ENV}-cluster --service ${NEW_ARN} | jq -r .services[].taskDefinition); NEWTAG=$(aws ecs describe-task-definition --task-definition ${TASKDEF_ARN} | jq -r .taskDefinition.containerDefinitions[].image | tr ':' ' ' | awk '{print $2}'); done
+      - | 
+        NEWTAG=''
+        while [ "${NEWTAG}" != "${TAG}" ]; 
+        do 
+           NEW_ARN=$(aws ecs list-services --cluster ${APP_NAME}-${ENV}-cluster | jq -r .serviceArns[])
+           NEW_TASKDEF=$(aws ecs describe-services --cluster ${APP_NAME}-${ENV}-cluster --service ${NEW_ARN} | jq -r .services[].taskDefinition)
+           NEWTAG=$(aws ecs describe-task-definition --task-definition ${TASKDEF_ARN} | jq -r .taskDefinition.containerDefinitions[].image | tr ':' ' ' | awk '{print $2}')
+           echo "Tag: ${TAG} New tag: ${NEWTAG}"
+           if [ "${NEWTAG}" != ${TAG} ]; then
+              sleep 10
+           fi
+        done
       - echo "Cluster has been deployed"
