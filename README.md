@@ -50,7 +50,9 @@ Main configuration files are the next:
 
 You can set variable value during terragrunt run to override configuration. For example:
 
-`terragrunt apply -var="app_name=MY_VALUE"`
+```
+terragrunt apply -var="app_name=MY_VALUE"
+```
 
 /providers/dev/buildspec.yml - Pipeline file for AWS Codebuild. 
 
@@ -65,10 +67,11 @@ You can set variable value during terragrunt run to override configuration. For 
  - Obtain [GitHub token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
  - Create "secrets.hcl" file and add Github token:
 
-`inputs = {
+```
+inputs = {
   github_oauth_token = "GITHUB_TOKEN"
 }
-`
+```
 
 > If you want to change Application name, environment name or region do not forget to update buildspec.yml before deploying from sratch. If you want to change parameters when infrastructure already deployed, it will delete all of existing resources and deploy new infrastructure and application.
 
@@ -76,15 +79,21 @@ You can set variable value during terragrunt run to override configuration. For 
 
  - Go to the /providers/dev directory and run:
 
-`terragrunt run-all init`
+```
+terragrunt run-all init
+```
 
 - Then...
 
-`terragrunt run-all plan`
+```
+terragrunt run-all plan
+```
 
 - And if there is no issues in generated plan:
 
-`terragrunt run-all apply`
+```
+terragrunt run-all apply
+```
 
 ### Step by step deployment
 
@@ -97,11 +106,15 @@ Step by step deployment should be done in the next order:
 
 Go to each folder one by one and run:
 
-`terragrunt plan`
+```
+terragrunt plan
+```
 
 - When plan is completed run:
 
-`terragrunt apply`
+```
+terragrunt apply
+```
 
 - Go to the next directory when deployment completed. 
 
@@ -111,9 +124,13 @@ When resources creation is finished you can push a new version to "develop" bran
 
 You can destroy everything you deployed with the next command which should be executed in `dev/` directory:
 
-`terraform run-all destroy`
+```
+terraform run-all destroy
+```
 
 Or you can destroy components step by step in reverse order from deployment. Go to the appropriate directory and run:
 
-`terragrunt destroy`   
+```
+terragrunt destroy
+```   
 
