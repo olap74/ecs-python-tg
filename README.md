@@ -62,7 +62,7 @@ You can set variable value during terragrunt run to override configuration. For 
  - Configure AWS Cli for your account (see [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html))
  - Download the repo content
  - Update "locals" block in providers/dev/terragrunt.hcl file
- - Obtaint [GitHub token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
+ - Obtain [GitHub token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
  - Create "secrets.hcl" file and add Github token:
 
 `inputs = {
