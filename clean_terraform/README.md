@@ -6,6 +6,8 @@ This directory contains Terraform module which consolidates other modules to pro
 
 Deployment with plain Terraform a bit more complex than with Teragrunt. Follow the instruction below.
 
+> *Remember that you should not create resourses with both solutions (plain Terraform and Terraform+Terragrunt) together. Both solution uses the same modules and resources will have the same names which will result an issue if you run deploy after it is deployed with another solution.*
+
 ### Deployment 
 
 #### <u>Description</u>
