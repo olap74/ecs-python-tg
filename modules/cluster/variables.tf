@@ -68,6 +68,10 @@ variable "image_tag" {
   type = string
 }
 
+variable "taskdef_template" {
+  default = "cb_app.json.tpl"
+}
+
 locals {
   app_image = format("%s:%s", var.ecr_repository_url, var.image_tag)
 }
