@@ -32,10 +32,12 @@ variable "aws_account" {
 
 variable "github_oauth_token" {
     type=string
+    default = ""
 }
 
 variable "repo_url" {
     type = string
+    default = ""
 }
 
 variable "branch_pattern" {
@@ -45,6 +47,7 @@ variable "branch_pattern" {
 
 variable "git_trigger_event" {
     type = string
+    default = ""
 }
 
 variable "app_count" {
