@@ -9,7 +9,7 @@
 
 ## Description
 
-This solution was created to demonstrate how Continuous deployment based on "Infrastructure as a code" is look like. It consists of Python Flask based web-application which returns a web page containing a list of S3 bucket of your AWS account it is deployed to, Terraform modules to create infrastructure and Terragrunt configuration to make deployment easier.
+This solution was created to demonstrate how Continuous deployment based on "Infrastructure as a code" looks like. It consists of Python Flask based web-application which returns a web page containing a list of S3 bucket of your AWS account it is deployed to, Terraform modules to create infrastructure and Terragrunt configuration to make deployment easier.
 
 The solution creates an ECR repo, builds initial Docker image, creates a ECS Cluster, runs application on ECS Cluster and sets up Codebuild job which will start build and deploy by every commit to particular git branch ("develop" by default).      
 
