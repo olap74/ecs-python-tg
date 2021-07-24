@@ -25,7 +25,7 @@ This directory contains the next files:
 
 #### <u>Preparation</u>
 
-First, you should add a [GitHub token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) to `./config/secret.tfvars`Create the file ad fill with the next content: 
+First, you should add a [GitHub token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) to `./config/secret.tfvars`Create the file add fill with the next content: 
 
 ```
 github_oauth_token = "GITHUB_TOKEN"
@@ -96,7 +96,7 @@ Only 'yes' will be accepted to confirm.
 
 Type `yes`and state will be moved to the bucket.
 
-After moving state to S3 you can delete directory `./terraform`, and files `terraform.state` and `terraform.state.backup`It is not required and will not be commited to repository, you can delete them just to be shure that remote state is used. 
+After moving state to S3 you can delete directory `./terraform`, and files `terraform.state` and `terraform.state.backup`It is not required and will not be commited to repository, you can delete them just to be sure that remote state is used. 
 
 #### <u>Infrastructure deployment</u>
 
