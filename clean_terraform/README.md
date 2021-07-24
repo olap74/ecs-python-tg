@@ -8,7 +8,7 @@ Deployment with plain Terraform a bit more complex than with Teragrunt. Follow t
 
 ### Deployment 
 
-#### Description
+#### <u>Description</u>
 
 This directory contains the next files: 
 
@@ -21,7 +21,7 @@ This directory contains the next files:
 - `./terraform.tf` - Terraform configuration file
 - `./vars.tf` - Required variables
 
-#### Preparation
+#### <u>Preparation</u>
 
 First, you should add a [GitHub token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) to `./config/secret.tfvars`Create the file ad fill with the next content: 
 
@@ -31,7 +31,7 @@ github_oauth_token = "GITHUB_TOKEN"
 
 Then you should verify variable values in `./config/dev.tfvars`file and you will be prepared for the next step.
 
-#### Terraform state bucket
+#### <u>Terraform state bucket</u>
 
 The next step means Terraform bucket creation. The main idea is next. First, you should create a bucket, then you should move your existing Terraform state to the bucket.
 
@@ -96,7 +96,7 @@ Type `yes`and state will be moved to the bucket.
 
 After moving state to S3 you can delete directory `./terraform`, and files `terraform.state` and `terraform.state.backup`It is not required and will not be commited to repository, you can delete them just to be shure that remote state is used. 
 
-#### Infrastructure deployment
+#### <u>Infrastructure deployment</u>
 
 Now everything is ready to deploy infrastructure. Run the next command: 
 
@@ -147,7 +147,7 @@ terraform apply -target=module.codebuild --var-file=./config/dev.tfvars --var-fi
 
 Pay attention that secret.tfvars can be used for Codebuild module only, because GetHub token is used here.
 
-#### Destroying infrastructure
+#### <u>Destroying infrastructure</u>
 
 If you run `terraform destroy --var-file=./config/dev.tfvars` it will fail because Terraform state bucket has deletion protection to prevent bucket deletion and loosing Terraform state as a result. 
 
