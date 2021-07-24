@@ -1,6 +1,6 @@
 # FlaskApp
 
-This repository contains a "FlaskApp", which is a small containerized application written with Python 3 Flask. This application can be deployed to AWS Elastic Container service with Terraform solution, which is also included. 
+> *This page describes how to deploy application using Terragrunt. If you want to use Terrafrom without Terragrunt, please follow the [next instruction](./clean_terraform). Please, use only one solution. If you decided to try clean Terraform when Application is already deployed with Terragrunt, destroy it before using Terraform.*
 
 #### Tools versions:
 - Terraform - 0.14.7

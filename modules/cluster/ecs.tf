@@ -5,7 +5,7 @@ resource "aws_ecs_cluster" "main" {
 }
 
 data "template_file" "cb_app" {
-  template = file("cb_app.json.tpl")
+  template = file(var.taskdef_template)
 
   vars = {
     app_image      = local.app_image
