@@ -1,0 +1,58 @@
+version: 0.2
+
+env:
+  variables:
+    CI: "true"
+    REPOSITORY_REGION: "eu-west-1"
+    ENV: "prod"
+    APP_NAME: "flaskapp"
+    TERRAFORM_VERSION: "0.14.7"
+    TERRAGRUNT_VERSION: "0.28.7"
+    
+phases:
+  pre_build:
+    commands:
+      - curl -sSL "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" -o terraform.zip
+      - unzip terraform.zip -d /usr/local/bin && chmod +x /usr/local/bin/terraform
+      - curl -sSL https://github.com/gruntwork-io/terragrunt/releases/download/v${TERRAGRUNT_VERSION}/terragrunt_linux_amd64 -o terragrunt
+      - mv terragrunt /usr/local/bin/ && chmod +x /usr/local/bin/terragrunt
+      - export REGISTRY_ID=`aws sts get-caller-identity --output text | awk '{print $1}'`
+      - export REPO_NAME="${REGISTRY_ID}.dkr.ecr.${REPOSITORY_REGION}.amazonaws.com/${APP_NAME}-${ENV}"
+      - pip install jq
+      - echo "Getting existing tag"
+      - export SERVICE_ARN=$(aws ecs list-services --cluster ${APP_NAME}-${ENV}-cluster | jq -r .serviceArns[])
+      - export TASKDEF_ARN=$(aws ecs describe-services --cluster ${APP_NAME}-${ENV}-cluster --service ${SERVICE_ARN} | jq -r .services[].taskDefinition)
+      - export EXISTING_TAG=$(aws ecs describe-task-definition --task-definition ${TASKDEF_ARN} | jq -r .taskDefinition.containerDefinitions[].image | tr ':' ' ' | awk '{print $2}')
+      - echo "Current version is ${EXISTING_TAG}"
+      
+  build:
+    commands:
+      - echo "Build and push docker images"
+      - cd "${CODEBUILD_SRC_DIR}/app"
+      - export TAG="${CODEBUILD_RESOLVED_SOURCE_VERSION}-${ENV}"
+      - echo "Building version ${TAG}"
+      - make build
+
+      - cd ${CODEBUILD_SRC_DIR} 
+      - terragrunt plan --terragrunt-working-dir providers/dev/ecs-cluster/ -var="image_tag=${TAG}" -no-color -input=false -out plan.out
+      - terragrunt apply --terragrunt-working-dir providers/dev/ecs-cluster/ -auto-approve -no-color -input=false plan.out
+
+  post_build:
+    commands:
+      - | 
+        if [ $CODEBUILD_BUILD_SUCCEEDING != 0 ]; then
+          NEWTAG=''
+          while [ "${NEWTAG}" != "${TAG}" ]; 
+          do 
+            NEW_ARN=$(aws ecs list-services --cluster ${APP_NAME}-${ENV}-cluster | jq -r .serviceArns[])
+            NEW_TASKDEF=$(aws ecs describe-services --cluster ${APP_NAME}-${ENV}-cluster --service ${NEW_ARN} | jq -r .services[].taskDefinition)
+            NEWTAG=$(aws ecs describe-task-definition --task-definition ${NEW_TASKDEF} | jq -r .taskDefinition.containerDefinitions[].image | tr ':' ' ' | awk '{print $2}')
+            echo "Waiting until new image started... Tag: ${TAG} New tag: ${NEWTAG}"
+            if [ "${NEWTAG}" != ${TAG} ]; then
+              sleep 10
+            fi
+          done
+        else
+          echo "Build failed"
+        fi
+      - echo "Cluster has been deployed"

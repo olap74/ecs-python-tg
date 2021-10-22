@@ -1,15 +1,15 @@
 locals {
   remote_state_bucket_prefix = "terraform"
-  environment = "dev"
+  environment = "prod"
   app_name = "flaskapp"
   aws_profile = "default"
   aws_account = "695741482326"
   aws_region = "eu-west-1"
   image_tag = "0.0.1"
   repo_url = "https://github.com/olap74/ecs-python-tg"
-  branch_pattern = "^refs/heads/develop$"
+  branch_pattern = "^refs/tags/prod-.*"
   git_trigger_event = "PUSH"
-  app_count = 1
+  app_count = 3
 }
 
 inputs = {
