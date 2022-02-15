@@ -15,7 +15,7 @@ data "aws_ami" "bastion" {
 
 resource "aws_key_pair" "bastion" {
     key_name   = format("%s-bastion-key", var.environment)
-    public_key = file(var.ssh_public_key_file)
+    public_key = var.ssh_public_key
 }
 
 resource "aws_instance" "bastion" {

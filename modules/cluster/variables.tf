@@ -76,6 +76,6 @@ locals {
   app_image = format("%s:%s", var.ecr_repository_url, var.image_tag)
 }
 
-variable "ssh_public_key_file" {
-  default = "~/.ssh/id_rsa.pub"
+variable "ssh_public_key" {
+  default = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCqgUY0+6BoUYiQ/sifnNTpUqekgqnoc8SZFJ6bnAYy8LYa5ezajP6i2SVJ9WzIRUkODEubHwauYQNP5pKujCDtDEzio8W1lwaYfVu3o+Y6RVX/F3gWqWx4b1JbbENH2H4EeHnmhICOe5IRiNyckaUg7Zp9VwGXIjt8XsqGb4B2HPbNgysFOKSU79OZCWhNkpKMQ1NAIpKTghRQu5EcH0NmAruzrvwvuw2fspE4tRXb4YfbVLE+2gCQmatC51pA4qexGjBdLXDhpdpzwPnJRcr98UXsgXnrdjdaOJ7uLqR55vcoXrEb8qguAa2atR68+eYTlKdW8gWnjCQgGjd/VsOOwn9wjTKrupQ892PlWqXHJW+///rQGsG9UM0bnz+mGliO6dz8Y6TRtZB1dekhUBLTILdmpf9FlnlBmRwlaqOg9SP/HRexqO3rPfByr2pwXnPYwSOKGtMxFHidAd6tOtDot8rBHRUOHYH6xqUp4RpM852+w7GWPl3RNhDGF1RB/psSmTLM3859NC5EW+EKplNMvsEnI/HKUS9tfewqs20QqrupMaVp5b9FmmrGTC8n1Cj9YHFqoOZGkWc7Kbd5Fg8p0KKgJMUCvi6BjIpgM1Ze+xz2dDDr9OsbwgpCPpjxojcz/zPjvv3gVmk9aVaZ3wUMD85WO0xYgMfNlTzclnLCXQ== alex@laptev.me"
 }
