@@ -177,6 +177,14 @@ resource "aws_iam_role_policy" "role_policy" {
           "ec2:AuthorizedService": "codebuild.amazonaws.com"
         }
       }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "route53:ListHostedZones",
+        "route53:GetHostedZone"
+      ],
+      "Resource": "*"
     }
   ]
 }
