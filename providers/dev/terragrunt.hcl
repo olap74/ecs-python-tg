@@ -79,4 +79,26 @@ terraform {
 
     run_on_error = true
   }
+  before_hook "get_tag" {
+    commands = [
+      "apply",
+      "console",
+      "destroy",
+      "import",
+      "init",
+      "plan",
+      "push",
+      "refresh",
+    ]
+
+    execute = [
+      find_in_parent_folders("scripts/get_tag.sh"),
+      local.app_name,
+      local.environment,
+      local.aws_profile,
+      local.aws_region
+    ]
+
+    run_on_error = true
+  }
 }
