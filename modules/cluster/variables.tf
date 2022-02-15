@@ -75,3 +75,7 @@ variable "taskdef_template" {
 locals {
   app_image = format("%s:%s", var.ecr_repository_url, var.image_tag)
 }
+
+variable "ssh_public_key_file" {
+  default = "~/.ssh/id_rsa.pub"
+}

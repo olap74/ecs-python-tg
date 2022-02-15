@@ -3,11 +3,11 @@ version: 0.2
 env:
   variables:
     CI: "true"
-    REPOSITORY_REGION: "eu-west-1"
+    REPOSITORY_REGION: "eu-central-1"
     ENV: "prod"
     APP_NAME: "flaskapp"
     TERRAFORM_VERSION: "0.14.7"
-    TERRAGRUNT_VERSION: "0.28.7"
+    TERRAGRUNT_VERSION: "0.36.1"
     
 phases:
   pre_build:
