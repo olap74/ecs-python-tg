@@ -14,15 +14,17 @@ data "aws_ami" "bastion" {
 }
 
 resource "aws_key_pair" "bastion" {
+    count = var.enable_bastion ? 1 : 0
     key_name   = format("%s-bastion-key", var.environment)
     public_key = var.ssh_public_key
 }
 
 resource "aws_instance" "bastion" {
+    count = var.enable_bastion ? 1 : 0
     ami = data.aws_ami.bastion.id  
     instance_type = "t2.micro" 
-    key_name= aws_key_pair.bastion.key_name
-    vpc_security_group_ids = [aws_security_group.bastion_ssh.id]
+    key_name= aws_key_pair.bastion[0].key_name
+    vpc_security_group_ids = [aws_security_group.bastion_ssh[0].id]
     associate_public_ip_address = true
     subnet_id     = aws_subnet.public[0].id
     
@@ -35,28 +37,29 @@ resource "aws_instance" "bastion" {
 }
 
 resource "aws_security_group" "bastion_ssh" {
-  name        = format("%s-bastion", var.environment)
-  description = "Allow SSH inbound traffic"
-  vpc_id      = aws_vpc.main.id
+    count       = var.enable_bastion ? 1 : 0
+    name        = format("%s-bastion", var.environment)
+    description = "Allow SSH inbound traffic"
+    vpc_id      = aws_vpc.main.id
 
-  ingress {
+    ingress {
     description      = "SSH Public"
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
-  }
+    }
 
-  egress {
+    egress {
     from_port        = 0
     to_port          = 0
     protocol         = "-1"
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
-  }
+    }
 
-  tags = {
+    tags = {
     Name = "allow_tls"
-  }
+    }
 }

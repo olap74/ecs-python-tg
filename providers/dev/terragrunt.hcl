@@ -10,6 +10,7 @@ locals {
   branch_pattern = "^refs/heads/develop$"
   git_trigger_event = "PUSH"
   app_count = 3
+  enable_bastion = true
 }
 
 inputs = {
@@ -24,6 +25,7 @@ inputs = {
   branch_pattern = local.branch_pattern
   git_trigger_event = local.git_trigger_event
   app_count = local.app_count
+  enable_bastion = local.enable_bastion
 }
 
 remote_state {
