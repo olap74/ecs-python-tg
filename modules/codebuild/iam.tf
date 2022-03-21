@@ -182,7 +182,8 @@ resource "aws_iam_role_policy" "role_policy" {
       "Effect": "Allow",
       "Action": [
         "route53:ListHostedZones",
-        "route53:GetHostedZone"
+        "route53:GetHostedZone",
+        "route53:ListTagsForResource"
       ],
       "Resource": "*"
     }
