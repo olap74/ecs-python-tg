@@ -31,7 +31,7 @@ phases:
       - cd "${CODEBUILD_SRC_DIR}/app"
       - export TAG="${CODEBUILD_RESOLVED_SOURCE_VERSION}-${ENV}"
       - echo "Building version ${TAG}"
-      - make build
+      - make build-ci
       - echo "Build completed!"
 
       - cd ${CODEBUILD_SRC_DIR} 
