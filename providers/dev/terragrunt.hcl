@@ -2,7 +2,7 @@ locals {
   remote_state_bucket_prefix = "terraform"
   environment = "dev"
   app_name = "flaskapp"
-  aws_profile = "default"
+  aws_profile = "default-dev"
   aws_account = "943714287015"
   aws_region = "eu-central-1"
   image_tag = "0.0.1"
