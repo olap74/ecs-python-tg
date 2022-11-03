@@ -9,7 +9,7 @@ locals {
   repo_url = "https://github.com/olap74/ecs-python-tg"
   branch_pattern = "^refs/heads/develop$"
   git_trigger_event = "PUSH"
-  app_count = 1
+  app_count = 3
   enable_bastion = true
 }
 
